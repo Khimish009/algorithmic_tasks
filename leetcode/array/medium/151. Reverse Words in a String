@@ -30,6 +30,20 @@ Follow-up: If the string data type is mutable in your language, can you solve it
 Solution:
 var reverseWords = function(s) {
     let result = ''
+    const arr = s.split(' ')
+
+    for(let i = arr.length - 1; i >= 0; i--) {
+        if(arr[i]) {
+            result += (result ? " " : "")+ arr[i]
+        }
+    }
+
+    return result
+};
+
+Solution:
+var reverseWords = function(s) {
+    let result = ''
     const arr = Array.from(s.split(' '))
 
     for(let i = arr.length - 1; i >= 0; i--) {
