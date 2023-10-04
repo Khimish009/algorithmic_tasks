@@ -1,0 +1,28 @@
+function reduceString(string) {
+    let pointer = 0
+    let lastLetter = string[0]
+    const result = []
+
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] !== lastLetter) {
+            result.push(pack(lastLetter, i - pointer))
+            lastLetter = string[i]
+            pointer = i
+        }
+    }
+
+    result.push(pack(lastLetter, string.length - pointer))
+
+    return result.join('')
+}
+
+function pack(str, count) {
+    if (count > 1) {
+        return str + count
+    }
+
+    return str
+}
+
+
+console.log(reduceString('aaaabbcdddaaaaaahhyyuuuabcdefgkklll')) // a4b2cd3a6h2y2u3abcdefgk2l3
