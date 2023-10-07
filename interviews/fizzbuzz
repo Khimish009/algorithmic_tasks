@@ -1,0 +1,16 @@
+function fizzBuzz(num) {
+    return Array.from({ length: num }).map((_, i) => {
+        const index = i + 1
+        if (index % 3 === 0 && index % 5 === 0) {
+            return 'fizzbuzz'
+        } else if (index % 5 === 0) {
+            return 'buzz'
+        } else if (index % 3 === 0) {
+            return 'fizz'
+        } else {
+            return index
+        }
+    })
+}
+
+console.log(fizzBuzz(25))
