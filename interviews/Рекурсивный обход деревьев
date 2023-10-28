@@ -1,0 +1,40 @@
+const struct = {
+  left: 12,
+  right: 12,
+  children: [
+    {
+      left: 15,
+      right: 13,
+      children: [],
+    },
+    {
+      left: 62,
+      right: 14,
+      children: [
+        {
+          left: 20,
+          right: 2,
+        },
+      ],
+    },
+  ],
+};
+
+function calculateLeftRight(root) {
+  const result = { left: [], right: [] };
+
+  function calculate(node) {
+    result.left.push(node.left);
+    result.right.push(node.right);
+
+    node.children?.forEach((node) => {
+      calculate(node);
+    });
+  }
+
+  calculate(root);
+
+  return result;
+}
+
+console.log(calculateLeftRight(struct)); // { left: (4) [12, 15, 62, 20], right: (4) [12, 13, 14, 2] }
