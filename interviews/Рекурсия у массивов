@@ -1,0 +1,21 @@
+const arr = [["a"], ["b", "c"], [[["d"]]]]; // [1, 2, 3, 4]
+
+function flatter(arr) {
+  const result = [];
+
+  function flat(array) {
+    array.forEach((element) => {
+      if (Array.isArray(element)) {
+        flat(element);
+      } else {
+        result.push(element);
+      }
+    });
+  }
+
+  flat(arr);
+
+  return result;
+}
+
+console.log(flatter(arr));
