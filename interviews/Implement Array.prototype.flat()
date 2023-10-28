@@ -1,0 +1,50 @@
+const arr = [1, [2], [3, [4]]];
+
+Solution 1:
+function flat(arr, depth = 1) {
+  const result = [];
+
+  for (item of arr) {
+    if (Array.isArray(item) && depth > 0) {
+      result.push(...flat(item, depth - 1));
+    } else {
+      result.push(item);
+    }
+  }
+
+  return result;
+}
+
+console.log(flat(arr, 1));
+
+Solution 2:
+function flat(arr, depth = 1) {
+  return arr.reduce((acc, curr) => {
+    if (Array.isArray(curr) && depth > 0) {
+      acc.push(...flat(curr, depth - 1));
+    } else {
+      acc.push(curr);
+    }
+
+    return acc;
+  }, []);
+}
+
+Solution 3: // stack
+function flat(arr, depth = 1) {
+  const result = [];
+  const stack = [...arr.map((item) => [item, depth])];
+
+  while (stack.length > 0) {
+    const [top, depth] = stack.pop();
+
+    if (Array.isArray(top) && depth > 0) {
+      stack.push(...top.map((item) => [item, depth - 1]));
+    } else {
+      result.push(top);
+    }
+  }
+
+  return result.reverse();
+}
+
