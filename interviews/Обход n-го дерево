@@ -1,0 +1,72 @@
+const tree = [
+  {
+    value: 5,
+    children: [
+      {
+        value: 5,
+      },
+      {
+        value: 10,
+        children: [
+          {
+            value: 11,
+          },
+        ],
+      },
+      {
+        value: 11,
+        children: [
+          {
+            value: 12,
+            children: [
+              {
+                value: 5,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 5,
+    children: [
+      {
+        value: 7,
+      },
+      {
+        value: 12,
+        children: [
+          {
+            value: 11,
+          },
+        ],
+      },
+      {
+        value: 14,
+      },
+    ],
+  },
+];
+
+Solution:
+function treeSum(tree) {
+  if (tree.length === 0) return 0;
+
+  let sum = 0;
+  const stachildrenk = [...tree];
+
+  while (stachildrenk.length !== 0) {
+    const top = stachildrenk.pop();
+
+    sum += top.value;
+
+    if (top.children) {
+      stachildrenk.push(...top.children);
+    }
+  }
+
+  return sum;
+}
+
+console.log(treeSum(tree)); // 108
