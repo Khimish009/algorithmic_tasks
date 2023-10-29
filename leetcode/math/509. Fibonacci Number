@@ -25,11 +25,13 @@ Constraints:
 
 Solution:
 function fib(n) {
-  let prev = 0,
-    current = 1;
+  if (n <= 0) return 0;
+  if (n <= 2) return 1;
 
-  for (let i = 1; i < n; i++) {
-    [prev, current] = [current, prev + current];
+  let prev = 1, current = 1;
+
+  for (let i = 0; i < n - 2; i++) {
+    [prev, current] = [current, current + prev];
   }
 
   return current;
