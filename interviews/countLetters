@@ -1,0 +1,21 @@
+const str = "Sssssaalmmmmaaaaaaaannn";
+
+function countLetters(str) {
+  let count = 1;
+
+  return str
+    .toLowerCase()
+    .split("")
+    .reduce((acc, letter, index, array) => {
+      if (letter !== array[index + 1]) {
+        acc += letter + `{${count}}`;
+        count = 1;
+      } else {
+        count++;
+      }
+
+      return acc;
+    }, "");
+}
+
+console.log(countLetters(str)); // 's{5}a{2}l{1}m{4}a{8}n{3}'
