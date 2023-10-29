@@ -70,3 +70,20 @@ function treeSum(tree) {
 }
 
 console.log(treeSum(tree)); // 108
+
+Solution with recursion:
+function treeSum(tree) {
+  let sum = 0;
+
+  for (const node of tree) {
+    sum += node.value;
+
+    if (node?.children) {
+      sum += treeSum(node.children);
+    }
+  }
+
+  return sum;
+}
+
+console.log(treeSum(tree)); // 108
