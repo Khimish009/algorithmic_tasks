@@ -19,6 +19,33 @@ It is guaranteed that the answer is unique.
 Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
 Solution:
+var topKFrequent = function (nums, k) {
+  const hashMap = new Map()
+  const arr = Array.from({ length: nums.length + 1 }, () => [])
+  const result = []
+
+  for (const num of nums) {
+    hashMap.set(num, (hashMap.get(num) + 1 || 1))
+  }
+
+  for (const [key, value] of hashMap) {
+    arr[value].push(key)
+  }
+
+  for (let i = arr.length - 1; i > 0; i--) {
+    if (result.length === k) {
+      break
+    }
+
+    if (arr[i].length) {
+      result.push(...arr[i])
+    }
+  }
+
+  return result
+};
+
+Solution:
 var topKFrequent = function(nums, k) {
    const hash = {}
 
