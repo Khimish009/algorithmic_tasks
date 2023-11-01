@@ -1,0 +1,19 @@
+function iWantToGet(amountRequired) {
+  const availableNotes = [100, 50, 20, 10]
+  const result = []
+
+  if (amountRequired <= 0) return []
+
+  for (let i = 0; i < availableNotes.length; i++) {
+    const note = availableNotes[i]
+
+    while (amountRequired - note >= 0) {
+      result.push(note)
+      amountRequired -= note
+    }
+  }
+
+  return result
+}
+
+console.log(iWantToGet(160)) // [100, 50, 10]
