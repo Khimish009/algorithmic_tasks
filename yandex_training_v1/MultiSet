@@ -1,0 +1,53 @@
+class MultiSet {
+  #array;
+
+  constructor(size) {
+    this.#array = Array.from({ length: size }, () => []);
+  }
+
+  has(x) {
+    const key = x % 10;
+
+    for (const value of this.#array[key]) {
+      if (value === x) return true;
+    }
+
+    return false;
+  }
+
+  add(x) {
+    const key = x % 10;
+    this.#array[key].push(x);
+  }
+
+  delete(x) {
+    const key = x % 10;
+
+    for (const [index, value] of this.#array[key].entries()) {
+      if (value === x) {
+        const currentArray = this.#array[key];
+        currentArray[index] = currentArray.at(-1);
+        currentArray.pop();
+      }
+    }
+  }
+
+  get() {
+    return this.#array;
+  }
+}
+
+const hashFunc = new MultiSet(10);
+
+hashFunc.add(17);
+hashFunc.add(27);
+hashFunc.add(57);
+hashFunc.add(11);
+hashFunc.add(117);
+
+hashFunc.delete(27);
+
+console.log(hashFunc.has(57));
+console.log(hashFunc.has(42));
+
+console.log(hashFunc.get());
