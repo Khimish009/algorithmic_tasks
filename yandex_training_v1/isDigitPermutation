@@ -1,0 +1,28 @@
+  function isDigitPermutation(x, y) {
+    function countDigits(num) {
+      const digitCount = Array.from({length: 10}, () => 0)
+
+      while(num > 0) {
+        const lastDigit = num % 10
+        digitCount[lastDigit] += 1
+        num = Math.round(num / 10)
+      }
+
+      return digitCount
+    }
+
+    const digitsX = countDigits(x)
+    const digitsY = countDigits(y)
+
+    for(let i = 0; i < 10; i++) {
+      if(digitsX[i] !== digitsY[i]) {
+        return false
+      }
+    }
+
+    return true
+  }
+  
+
+  console.log(isDigitPermutation(2021, 2102)) // true
+  console.log(isDigitPermutation(2021, 2014)) // false
