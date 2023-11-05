@@ -1,0 +1,44 @@
+  function remapData(array) {
+    return array.reduce((acc, curr) => {
+      const product = curr[0];
+
+      for (let i = 1; i < curr.length; i++) {
+        if (curr[i] in acc) {
+          acc[curr[i]].push(product);
+        } else {
+          acc[curr[i]] = [product];
+        }
+      }
+
+      return acc;
+    }, {});
+  }
+
+  console.log(
+    remapData([
+      ["Помидоры", "Аня", "Женя"],
+      ["Огурцы", "Женя", "Аня"],
+      ["Рис", "Аня", "Иван", "Саша"],
+      ["Лосось", "Иван"]
+    ])
+  );
+
+Result:
+{
+    "Аня": [
+        "Помидоры",
+        "Огурцы",
+        "Рис"
+    ],
+    "Женя": [
+        "Помидоры",
+        "Огурцы"
+    ],
+    "Иван": [
+        "Рис",
+        "Лосось"
+    ],
+    "Саша": [
+        "Рис"
+    ]
+}
