@@ -1,0 +1,23 @@
+function countSort(nums) {
+  const maxValue = Math.max(...nums);
+  const minValue = Math.min(...nums);
+  const k = maxValue - minValue + 1; // кол-во элементов
+  const count = Array.from({ length: k }, () => 0);
+
+  for (const num of nums) {
+    count[num - minValue] += 1;
+  }
+
+  let nowPosition = 0;
+
+  for (let i = 0; i < k; i++) {
+    for (let j = 0; j < count[i]; j++) {
+      nums[nowPosition] = i + minValue;
+      nowPosition++;
+    }
+  }
+
+  return nums;
+}
+
+console.log(countSort([3, 1, 5, 3, 6, 8, 5, 7, 9, 10, 9, 9, 1, 17]));
