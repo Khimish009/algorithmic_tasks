@@ -1,0 +1,31 @@
+function printChar(str) {
+  const hashMap = {};
+  let result = "";
+
+  for (item of str) {
+    if (!(item in hashMap)) {
+      hashMap[item] = 0;
+    }
+
+    hashMap[item]++;
+  }
+
+  let maxSymbolCount = Math.max(...Object.values(hashMap));
+
+  for (let i = maxSymbolCount; i > 0; i--) {
+    for (const value of Object.values(hashMap)) {
+      if (value >= maxSymbolCount) {
+        result += "#";
+      } else {
+        result += "";
+      }
+    }
+    maxSymbolCount--;
+    result += "\n";
+  }
+
+  return result;
+}
+
+console.log(printChar("Hello, world!"));
+console.log(printChar("Hello, world! My name Salman"));
