@@ -1,0 +1,21 @@
+function countingSort(nums) {
+  const max = Math.max(...nums);
+  const countArray = Array.from({ length: max + 1 }, () => 0);
+
+  for (const num of nums) {
+    countArray[num]++;
+  }
+
+  const sortedArray = [];
+
+  for (let i = 0; i <= max; i++) {
+    while (countArray[i] > 0) {
+      sortedArray.push(i);
+      countArray[i]--;
+    }
+  }
+
+  return sortedArray;
+}
+
+console.log(countingSort([4, 2, 8, 3, 1, 7, 5, 6])); // [1, 2, 3, 4, 5, 6, 7, 8]
