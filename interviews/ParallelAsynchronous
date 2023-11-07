@@ -1,0 +1,33 @@
+function parallel(funcArray, doneAll) {
+  const results = []
+  let completed = 0
+
+  funcArray.forEach((func, index) => {
+    new Promise((resolve) => func(resolve))
+      .then(result => {
+        results[index] = result
+        completed += 1
+      })
+      .then(() => {
+        if (completed === funcArray.length) {
+          doneAll(results)
+        }
+      })
+  })
+}
+
+var a = function (done) {
+  setTimeout(function () {
+    done('result a')
+  }, 300)
+}
+
+var b = function (done) {
+  setTimeout(function () {
+    done('result b')
+  }, 200)
+}
+
+parallel([a, b], function (results) {
+  console.log(results)  // ['result a', 'result b']
+})
