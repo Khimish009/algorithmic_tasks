@@ -1,0 +1,33 @@
+function stressControl(words, text) {
+  const dictLower = {}
+  let mistakes = 0
+
+  for (const word of words) {
+    const lowerWord = word.toLowerCase()
+
+    if (!(lowerWord in dictLower)) {
+      dictLower[lowerWord] = []
+    }
+
+    dictLower[lowerWord].push(word)
+  }
+
+  for (const word of text.split(' ')) {
+    const lowerWord = word.toLowerCase()
+
+    if (lowerWord in dictLower) {
+      if (!dictLower[lowerWord].includes(word)) {
+        mistakes++
+      }
+    } else {
+      if (word.match(/[A-Z]/g)?.length !== 1) {
+        mistakes++
+      }
+    }
+  }
+
+  return mistakes
+}
+
+console.log(stressControl(['cAnnot', 'cannOt', 'fOund', 'pAge'], 'thE pAge cAnnot be found')) // 2
+console.log(stressControl(['cAnnot', 'cannOt', 'fOund', 'pAge'], 'The PAGE cannot be found')) // 4
