@@ -1,0 +1,28 @@
+function memorize(callback) {
+  const cache = new Map();
+  
+  return function (...args) {
+    const key = JSON.stringify(args);
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    const result = callback(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+let callCount = 0;
+
+const memorizedFn = memorize(function (a, b) {
+  callCount++;
+  return a + b;
+});
+
+console.log(memorizedFn(2, 3)); // 5
+console.log(memorizedFn(2, 3)); // 5
+console.log(memorizedFn(2, 3)); // 5
+console.log(memorizedFn(2, 3)); // 5
+console.log("callCount", callCount); // 1
