@@ -1,0 +1,35 @@
+function merge(arr1, arr2) {
+  const result = [];
+  let pointer1 = 0;
+  let pointer2 = 0;
+
+  while (pointer1 < arr1.length && pointer2 < arr2.length) {
+    if (arr1[pointer1] === arr2[pointer2]) {
+      result.push(arr1[pointer1], arr2[pointer2]);
+      pointer1++;
+      pointer2++;
+    }
+
+    if (arr1[pointer1] > arr2[pointer2]) {
+      result.push(arr2[pointer2]);
+      pointer2++;
+    }
+
+    if (arr1[pointer1] < arr2[pointer2]) {
+      result.push(arr1[pointer1]);
+      pointer1++;
+    }
+  }
+
+  if (pointer1 < arr1.length) {
+    result.push(...arr1.slice(pointer1));
+  }
+
+  if (pointer2 < arr2.length) {
+    result.push(...arr2.slice(pointer2));
+  }
+
+  return result;
+}
+
+console.log(merge([1, 2, 5, 7], [3, 4, 4]));  // [1, 2, 3, 4, 4, 5, 7]
