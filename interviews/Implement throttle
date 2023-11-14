@@ -1,0 +1,35 @@
+function throttle(fn, delay) {
+  let throttled = false
+  let savedArgs = savedThis = null
+
+  function wrapper() {
+    if (throttled) {
+      savedArgs = arguments
+      savedThis = this
+      return
+    }
+
+    fn.apply(this, arguments)
+
+    throttled = true
+
+    setTimeout(() => {
+      throttled = false
+
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs)
+        savedArgs = savedThis = null
+      }
+    }, delay)
+  }
+
+  return wrapper
+}
+
+function mouseMove() {
+  console.log(new Date())
+}
+
+const throttleFunc = throttle(mouseMove, 3000)
+
+setInterval(throttleFunc, 1000)
