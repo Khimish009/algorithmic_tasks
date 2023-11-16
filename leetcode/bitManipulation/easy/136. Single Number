@@ -20,18 +20,18 @@ Constraints:
 -3 * 104 <= nums[i] <= 3 * 104
 Each element in the array appears twice except for one element which appears only once.
 
-Solution 1: O(N), S(1)
+Solution 1: Time O(N), Space O(1)
 function singleNumber(nums) {
-  let result = nums[0]
+  let result = 0
 
-  for (let i = 1; i < nums.length; i++) {
-    result = result ^ nums[i]
+  for (const num of nums) {
+    result = result ^ num
   }
 
   return result
 }
 
-Solution 2: O(N), S(N)
+Solution 2: Time O(N), Space O(N)
 function singleNumber(nums) {
   let result = nums[0]
   let hashMap = {}
