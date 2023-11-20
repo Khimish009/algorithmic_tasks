@@ -17,8 +17,17 @@ Constraints:
 The number of nodes in the list is in the range [1, 100].
 1 <= Node.val <= 100
 
-Better Solution:
+Better Solution: Time O(n), Space O(1)
+var middleNode = function(head) {
+    let slow = fast = head
 
+    while(fast && fast.next) {
+        fast = fast.next.next
+        slow = slow.next
+    }
+
+    return slow
+};
 
 My Solution: Time O(n), Space O(1)
 var middleNode = function(head) {
