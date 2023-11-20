@@ -11,10 +11,22 @@ Example 2:
 Input: head = [0]
 Output: 0
  
-Constraints:
+Constraints: Time O(n), Space O(n)
 The Linked List is not empty.
 Number of nodes will not exceed 30.
 Each node's value is either 0 or 1.
+
+Solution:
+var getDecimalValue = function(head) {
+    let result = 0
+
+    while(head) {
+        result = result * 2 + head.val
+        head = head.next
+    }
+    
+    return result
+};
 
 Solution: Time O(n), Space O(n)
 var getDecimalValue = function(head) {
