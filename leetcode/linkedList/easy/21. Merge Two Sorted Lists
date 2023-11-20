@@ -19,10 +19,29 @@ The number of nodes in both lists is in the range [0, 50].
 -100 <= Node.val <= 100
 Both list1 and list2 are sorted in non-decreasing order.
 
-Solution: Time O(n), Space O(1)
+Solution: Time O(a + b), Space O(1)
+var mergeTwoLists = function(list1, list2) {
+    const newHead = new ListNode(0)
+    let tmp = newHead
 
+    while(list1 && list2) {
+        if(list1.val > list2.val) {
+            tmp.next = list2
+            list2 = list2.next    
+        } else {
+            tmp.next = list1
+            list1 = list1.next
+        }
 
-Solution: Time O(n), Space O(n)
+        tmp = tmp.next
+    }
+
+    tmp.next = list1 || list2
+
+    return newHead.next
+};
+
+Solution: Time O(a + b), Space O(a + b)
 var mergeTwoLists = function(list1, list2) {
     const result = []
 
