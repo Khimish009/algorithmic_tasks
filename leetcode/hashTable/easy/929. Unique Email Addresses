@@ -21,16 +21,15 @@ All local and domain names are non-empty.
 Local names do not start with a '+' character.
 Domain names end with the ".com" suffix.
 
-Solution:
+Solution: Time O(n), Space(n) 
 var numUniqueEmails = function(emails) {
-    const hashSet = new Set()
+    return new Set(
+        emails.map(email => {
+            let [local, domain] = email.split('@')
+            local = local.split('+')[0].replace(/\./g, '')
 
-    for(const email of emails) {
-        let [local, domain] = email.split('@')
-        local = local.split('+')[0].replace(/\./g, '')
-        hashSet.add(local + '@' + domain)
-    }
-
-    return hashSet.size
+            return local + '@' + domain
+        })
+    ).size
 };
 
