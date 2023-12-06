@@ -25,25 +25,21 @@ banned[i] consists of only lowercase English letters.
 
 Solution: Time O(n), Space O(n)
 var mostCommonWord = function(paragraph, banned) {
+    const bannedList = new Set(banned)
     const hashMap = new Map()
     const words = paragraph.toLowerCase().match(/\w+/g)
-    const bannedWords = new Set(banned)
-    let result = ['', 0]
+    let result = {word: '', count: 0}
 
     for(const word of words) {
-        if(!bannedWords.has(word)) {
+        if(!bannedList.has(word)) {
             hashMap.set(word, (hashMap.get(word) || 0) + 1)
+
+            if(hashMap.get(word) > result.count) {
+                result.count = hashMap.get(word)
+                result.word = word
+            }
         }
     }
 
-    for(const [word, count] of hashMap.entries()) {
-        const [_, resultCount] = result
-
-        if(count > resultCount) {
-            result = [word, count]
-        }
-    }
-
-    return result[0]
+    return result.word
 };
-
