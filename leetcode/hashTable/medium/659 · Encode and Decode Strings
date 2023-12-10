@@ -16,11 +16,11 @@ Explanation:
 One possible encode method is: "we:;say:;:::;yes"
 
 Solution: Time O(n), Space O(1)
-function encode(words, splitter = String.fromCharCode(256)) {
+function encode(words, splitter = String.fromCharCode(257)) {
   return words.join(splitter)
 }
 
-function decode(str, splitter = String.fromCharCode(256)) {
+function decode(str, splitter = String.fromCharCode(257)) {
   return str.split(splitter)
 }
 
