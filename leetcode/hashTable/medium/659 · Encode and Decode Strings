@@ -16,12 +16,12 @@ Explanation:
 One possible encode method is: "we:;say:;:::;yes"
 
 Solution: Time O(n), Space O(1)
-function encode(words, splitter = String.fromCharCode(257)) {
-  return words.join(splitter)
+function encode(words, nonASCIICode = String.fromCharCode(257)) {
+  return words.join(nonASCIICode)
 }
 
-function decode(str, splitter = String.fromCharCode(257)) {
-  return str.split(splitter)
+function decode(str, nonASCIICode = String.fromCharCode(257)) {
+  return str.split(nonASCIICode)
 }
 
 const encodedText = encode(["lint","code","love","you"])
