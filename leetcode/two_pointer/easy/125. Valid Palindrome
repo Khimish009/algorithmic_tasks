@@ -24,8 +24,37 @@ Constraints:
 1 <= s.length <= 2 * 105
 s consists only of printable ASCII characters.
 
-Solution:
+Solution: Time O(n), Space O(1)
+var isPalindrome = function(s) {
+    let left = 0
+    let right = s.length - 1
+    const isAlphaNumeric = char => char.toLowerCase() >= 'a' && char.toLowerCase() <= 'z' || char >= '0' && char <= '9'
 
+    while(left < right) {
+        const skipLeft = !isAlphaNumeric(s[left])
+
+        if(skipLeft) {
+            left++
+            continue
+        }
+
+        const skipRight = !isAlphaNumeric(s[right])
+
+        if(skipRight) {
+            right--
+            continue
+        }
+
+        if(s[left].toLowerCase() !== s[right].toLowerCase()) {
+            return false
+        }
+
+        left++
+        right--
+    }
+
+    return true
+};
 
 Solution:
 var isPalindrome = function(s) {
