@@ -1,0 +1,172 @@
+const FULFILLED = 'fulfilled'
+const PENDING = 'pending'
+const REJECTED = 'rejected'
+
+class MyPromise {
+    constructor(executor) {
+        this.state = PENDING
+        this.result = undefined
+        this.onFulfilledFn = []
+        this.onRejectedFn = []
+
+        const resolve = (value) => {
+            if(this.state === PENDING) {
+                this.state = FULFILLED
+                this.result = value
+                this.onFulfilledFn.forEach(fn => fn(value))
+            }
+        }
+
+        const reject = (error) => {
+            if(this.state === PENDING) {
+                this.state = REJECTED
+                this.result = error
+                this.onRejectedFn.forEach(fn => fn(error))
+            }
+        }
+
+        try {
+            executor(resolve, reject)
+        } catch(err) {
+            reject(err)
+        }
+    }
+
+    then(onFulfilled, onRejected) {
+        return new MyPromise((resolve, reject) => {
+            if(this.state === PENDING) {
+                if(onFulfilled) {
+                    this.onFulfilledFn.push(() => {
+                        try {
+                            const newResult = onFulfilled(this.result)
+
+                            if(newResult instanceof MyPromise) {
+                                newResult.then(resolve, reject)
+                            } else {
+                                resolve(newResult)
+                            }
+                        } catch(err) {
+                            reject(err)
+                        }
+                    })
+                }
+    
+                if(onRejected) {
+                    this.onRejectedFn.push(() => {
+                        try {
+                            const newResult = onRejected(this.result)
+
+                            if(newResult instanceof MyPromise) {
+                                newResult.then(resolve, reject)
+                            } else {
+                                reject(newResult)
+                            }
+                        } catch(err) {
+                            reject(err)
+                        }
+                    })
+                }
+            }
+    
+            if(onFulfilled && this.state === FULFILLED) {
+                try {
+                    const newResult = onFulfilled(this.result)
+
+                    if(newResult instanceof MyPromise) {
+                        newResult.then(resolve, reject)
+                    } else {
+                        resolve(newResult)
+                    }
+                } catch(err) {
+                    reject(err)
+                }
+                return
+            }
+    
+            if(onRejected && this.state === REJECTED) {
+                try {
+                    const newResult = onRejected(this.result)
+
+                    if(newResult instanceof MyPromise) {
+                        newResult.then(resolve, reject)
+                    } else {
+                        reject(result)
+
+                    }
+                } catch(err) {
+                    reject(err)
+                }
+                return
+            }
+        })
+    }
+
+    catch(onRejected) {
+        return this.then(null, onRejected)
+    }
+}
+
+// 1.
+// const promise = new MyPromise((resolve, reject) => {
+//     resolve('success')
+// })
+
+// console.log(promise)
+
+// 2.
+// const promise = new MyPromise((resolve, reject) => {
+//     resolve('success')
+// }).then((value) => console.log(value), (error) => console.log(error))
+
+// 3.
+// const promise = new MyPromise((resolve, reject) => {
+//     setTimeout(() => resolve('success'), 100)
+// }).then(console.log)
+
+// 4.
+// const promise = new MyPromise((resolve, reject) => {
+//     setTimeout(() => reject(new Error('asdfg')), 100)
+// }).then(null, console.log)
+
+// 5.
+// const promise = new MyPromise((resolve, reject) => {
+//     setTimeout(() => reject(new Error('asdfg')), 100)
+// }).catch((err) => console.log(err))
+
+// 6.
+// const promise = new MyPromise((resolve) => {
+//     resolve('success')
+// })
+
+// // 6.1
+// const promise = new MyPromise((resolve) => {
+//     setTimeout(() => resolve('success'), 100)
+// })
+
+// promise.then(console.log)
+// promise.then(console.log)
+// promise.then(console.log)
+// promise.then(console.log)
+
+// 7.
+// const promise = new MyPromise((resolve, reject) => {
+//     resolve('success')
+// }).then((value) => value + ' first then')
+// .then((value) => value + ' second then')
+// .then(console.log)
+
+// 7.1
+// const promise = new MyPromise((resolve, reject) => {
+//     setTimeout(() => resolve('success'), 100)
+// }).then((value) => value + ' first then')
+// .then((value) => value + ' second then')
+// .then(console.log)
+
+// 8.
+// const promise = new MyPromise((resolve, reject) => {
+//     setTimeout(() => resolve('success'), 100)
+// }).then((value) => {
+//     return new MyPromise((resolve, reject) => {
+//         setTimeout(() => resolve(value + 'new promise'), 2000)
+//     })
+// }).then(console.log)
