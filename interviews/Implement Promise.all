@@ -1,0 +1,28 @@
+function all(promises) {
+  const wrappedPromises = [...promises].map(el => Promise.resolve(el))
+
+  if (wrappedPromises.length === 0) {
+    return Promise.resolve([])
+  }
+
+  return new Promise((resolve, reject) => {
+    const result = Array.from({length: wrappedPromises.length})
+    let fulfilledPromisesCount = 0
+
+    wrappedPromises.forEach((promise, index) => {
+      promise
+        .then(value => {
+          result[index] = value
+
+          fulfilledPromisesCount++
+
+          if(fulfilledPromisesCount === wrappedPromises.length) {
+            resolve(result)
+          }
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  })
+}
