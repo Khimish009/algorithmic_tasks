@@ -1,0 +1,13 @@
+function race(promises) {
+  const wrapperPromises = [...promises].map(el => Promise.resolve(el))
+
+  return new Promise((resolve, reject) => {
+    wrapperPromises(promise => {
+      promise
+        .then(value => resolve(value))
+        .catch(err => reject(err))
+    })
+  })
+}
+
+
