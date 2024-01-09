@@ -1,0 +1,21 @@
+function compression(str) {
+    const result = []
+    let count = 0
+
+    for(let i = 0; i < str.length; i++) {
+        const currentChar = str[i]
+        const nextChar = str[i + 1]
+
+        count++
+
+        if(currentChar !== nextChar) {
+            result.push(count > 1 ? currentChar + count : currentChar)
+            count = 0
+        }
+    }
+
+    return result.join('')
+}
+
+console.log(compression('AAAABBCCDDAAB'))  // A4B2C2D2A2B
+console.log(compression('A'))  // A
