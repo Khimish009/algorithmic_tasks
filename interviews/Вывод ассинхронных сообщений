@@ -1,0 +1,18 @@
+const ajax = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(new Date())
+            resolve()
+        }, 1000)
+    })
+}
+
+const array = [ajax, ajax, ajax, ajax, ajax, ajax, ajax, ajax]
+
+async function computed(array) {
+    for(const func of array) {
+        await func()
+    }
+}
+
+computed(array)
