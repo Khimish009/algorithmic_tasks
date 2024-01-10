@@ -1,0 +1,42 @@
+class Counter {
+  #counter = 0
+  static instance = null
+
+  constructor() {
+    if (Counter.instance) {
+      return Counter.instance
+    }
+    Counter.instance = this;
+  }
+
+  getInstance() {
+    return this;
+  }
+
+  getCount() {
+    console.log(this.#counter)
+  }
+
+  increment() {
+    return ++this.#counter;
+  }
+
+  decrement() {
+    return --this.#counter;
+  }
+}
+
+const counter1 = new Counter();
+const counter2 = new Counter();
+
+counter1.increment()
+counter1.increment()
+counter1.increment()
+
+
+counter2.increment()
+counter2.increment()
+counter1.getCount()
+counter2.getCount()
+
+console.log(counter1.getInstance() === counter2.getInstance())
