@@ -1,0 +1,11 @@
+function revert(obj) {
+  const result = {}
+
+  for (const key in obj) {
+    result[obj[key]] = key
+  }
+
+  return result
+}
+
+console.log(revert({ a: 1 })) // {1: a}
