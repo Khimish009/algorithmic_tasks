@@ -1,0 +1,34 @@
+Дано целое число: 19
+
+Нужно выяснить является ли оно счастливым
+
+Чтобы это узнать делаем следующее:
+  - возводим каждую цифру в квадрат и складываем
+     (1 * 1) + (9 * 9) = 82;
+  - если результат равен 1, то возвращаем true, если нет повторяем
+     (8 * 8) + (2 * 2) = 68;
+  - пока не получим 1 или не поймем, что единичка нам тут не светит и это false.
+
+
+const isHappyNumber = (num) => {
+    const seenNumbers = new Set()
+
+    while(num !== 1 && !seenNumbers.has(num)) {
+        seenNumbers.add(num)
+        num = sumOfSquares(num)
+    }
+
+    return num === 1
+};
+
+function sumOfSquares(num) {
+    let sum = 0;
+
+    while (num > 0) {
+        const digit = num % 10
+        sum += digit * digit
+        num = Math.floor(num / 10)
+    }
+
+    return sum
+}
