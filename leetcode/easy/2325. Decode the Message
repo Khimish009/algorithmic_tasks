@@ -1,0 +1,20 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(m)
+
+var decodeMessage = function(key, message) {
+    const hashMap = new Map()
+    let index = 0
+
+    for (const char of key) {
+        if (!hashMap.has(char) && char !== ' ') {
+            const letter = String.fromCharCode('a'.charCodeAt() + index)
+            hashMap.set(char, letter)
+
+            index++
+        }
+    }
+
+    return [...message].map(char => hashMap.get(char) || char).join('')
+};
+
