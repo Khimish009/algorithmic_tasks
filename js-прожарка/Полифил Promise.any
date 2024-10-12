@@ -1,0 +1,58 @@
+Полифилим Promise.any
+
+Нужно реализовать идентичный метод, не используя другие методы класса.
+
+Вот некоторый особенности, которые помогут тебе начать:
+  - метод принимает массив промисов;
+  - метод возвращает промис;
+  - метод ждет фуфила любого из переданных промисов и сразу отдает его результат,
+  - либо собирает все ошибки в массив.
+
+const fetchMock = (delay) => new Promise((resolve) => setTimeout(() => resolve(delay), delay));
+
+Solution 1:
+const promiseAny = async (promises) => {
+  let errors = [];
+
+  for (const promise of promises) {
+    try {
+      const result = await promise;
+
+      return result;
+    } catch (error) {
+      errors.push(error);
+      if (errors.length === promises.length) {
+        throw errors;
+      }
+    }
+  }
+};
+
+Solution 2:
+const promiseAny = (promises) => {
+  const arr = []
+  return new Promise((resolve, reject) => {
+    for (const promise of promises) {
+      promise
+        .then((data) => resolve(data))
+        .catch((err) => {
+          arr.push(err)
+        
+        if (arr.length === promises.length) {
+          reject(arr)
+        }
+      })
+    }
+  })
+}
+
+promiseAny([fetchMock(100), fetchMock(200), Promise.reject('rejected')])
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error));
+  // 100
+
+promiseAny([Promise.reject('rejected 1'), Promise.reject('rejected 2')])
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error));
+  // [ 'rejected 1', 'rejected 2' ]
+
