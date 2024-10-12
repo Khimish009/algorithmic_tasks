@@ -1,7 +1,24 @@
-Solution:
+Solution 1:
     Time complexity O(n)
     Space complexity O(m)
 
+var decodeMessage = function(key, message) {
+    const decoderMap = new Map()
+
+    for (const char of key) {
+        if (decoderMap.has(char) || char == ' ') {
+            continue
+        }
+
+        decoderMap.set(char, String.fromCharCode('a'.charCodeAt(0) + decoderMap.size))
+    }
+
+    decoderMap.set(' ', ' ')
+
+    return [...message].map(char => decoderMap.get(char)).join('')
+};
+
+Solution 2:
 var decodeMessage = function(key, message) {
     const hashMap = new Map()
     let index = 0
