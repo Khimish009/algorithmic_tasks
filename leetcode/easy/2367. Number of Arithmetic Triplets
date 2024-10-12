@@ -1,0 +1,16 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(m)
+
+var arithmeticTriplets = function(nums, diff) {
+    const numSet = new Set(nums)
+    let count = 0
+
+    for (const num of nums) {
+        if (numSet.has(num - diff) && numSet.has(num + diff)) {
+            count++
+        }
+    }
+
+    return count
+};
