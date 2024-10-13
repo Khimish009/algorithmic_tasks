@@ -1,0 +1,21 @@
+Solution:
+    Time complexity O(n * m)
+    Space complexity O(n)
+
+var uniqueMorseRepresentations = function(words) {
+    const set = new Set()
+    const alphabet = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+
+    for (const word of words) {
+        const morseWords = []
+
+        for (const char of word) {
+            const index = char.charCodeAt(0) - 'a'.charCodeAt(0)
+            morseWords.push(alphabet[index])
+        }
+
+        set.add(morseWords.join(''))
+    }
+
+    return set.size
+};
