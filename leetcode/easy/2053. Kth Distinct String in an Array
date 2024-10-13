@@ -1,0 +1,24 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(n)
+
+var kthDistinct = function(arr, k) {
+    const hashMap = new Map()
+
+    for (const char of arr) {
+        hashMap.set(char, (hashMap.get(char) || 0) + 1)
+    }
+
+    for (const char of arr) {
+        if (hashMap.get(char) === 1) {
+            k--
+
+            if (k === 0) {
+                return char
+            }
+        }
+    }
+
+
+    return ""
+};
