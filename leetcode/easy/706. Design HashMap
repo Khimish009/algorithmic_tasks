@@ -1,0 +1,21 @@
+Solution 1:
+    Time complexity O(1)
+    Space complexity O(n)
+
+const DEFAULT_VALUE = -1
+const SIZE = 1000001
+var MyHashMap = function() {
+    this.map = new Array(SIZE).fill(DEFAULT_VALUE)
+};
+
+MyHashMap.prototype.put = function(key, value) {
+    this.map[key] = value
+};
+
+MyHashMap.prototype.get = function(key) {
+    return this.map[key]
+};
+
+MyHashMap.prototype.remove = function(key) {
+    this.map[key] = -1
+};
