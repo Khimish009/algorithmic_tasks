@@ -1,0 +1,49 @@
+Solution 1:
+    Time complexity O(n)
+    Space complexity O(n)
+
+var maximumNumberOfStringPairs = function(words) {
+    const set = new Set()
+    let countPairs = 0
+
+    for (const word of words) {
+        const reverse = word[1] + word[0]
+
+        if (set.has(reverse)) {
+            countPairs++
+        } else {
+            set.add(word)
+        }
+    }
+
+    return countPairs
+};
+
+Solution 2:
+    Time complexity O(n * m)
+    Space complexity O(n)
+
+var maximumNumberOfStringPairs = function(words) {
+    const hashMap = new Map()
+    let countPairs = 0
+
+    for (const word of words) {
+        const arr = new Array(26).fill(0)
+
+        for (const char of word) {
+            const index = char.charCodeAt(0) - 'a'.charCodeAt(0)
+            arr[index]++
+        }
+
+        const key = arr.toString()
+        hashMap.set(key, (hashMap.get(key) || 0) + 1)
+    }
+
+    for (const value of [...hashMap.values()]) {
+        if (value >= 2) {
+            countPairs++
+        }
+    }
+
+    return countPairs
+};
