@@ -2,6 +2,64 @@ Solution 1:
     Time complexity O(1)
     Space complexity O(n)
 
+
+var MyHashMap = function() {
+    this.size = 10001
+    this.buckets = new Array(this.size).fill(null).map(() => [])
+};
+
+MyHashMap.prototype._hash = function(key) {
+    return key % this.size
+};
+
+MyHashMap.prototype.put = function(key, value) {
+    const hash = this._hash(key)
+    const bucket = this.buckets[hash]
+
+    for (let i = 0; i < bucket.length; i++) {
+        const [existedKey, exstedValue] = bucket[i]
+
+        if (existedKey === key) {
+            bucket[i] = [existedKey, value]
+            return
+        }
+    }
+
+    bucket.push([key, value])
+};
+
+MyHashMap.prototype.get = function(key) {
+    const hash = this._hash(key)
+    const bucket = this.buckets[hash]
+
+    for (let i = 0; i < bucket.length; i++) {
+        const [existedKey, exstedValue] = bucket[i]
+
+        if (existedKey === key) {
+            return exstedValue
+        }
+    }
+
+    return -1
+};
+
+MyHashMap.prototype.remove = function(key) {
+    const hash = this._hash(key)
+    const bucket = this.buckets[hash]
+
+    for (let i = 0; i < bucket.length; i++) {
+        const [existedKey, exstedValue] = bucket[i]
+
+        if (existedKey === key) {
+            bucket.splice(i, 1)
+        }
+    }
+};
+
+Solution 2:
+    Time complexity O(1)
+    Space complexity O(n)
+
 const DEFAULT_VALUE = -1
 const SIZE = 1000001
 var MyHashMap = function() {
