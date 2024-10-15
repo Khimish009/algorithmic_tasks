@@ -1,0 +1,35 @@
+Дан словарь:
+
+const priorities = {
+  guest: 1,
+  user: 2,
+  admin: 180,
+  moderator: 10, 
+  vip: 50
+}
+
+и массив, где описаны доступные тебе поля из этого словаря:
+
+const roles = [
+  'user', 
+  'vip', 
+  'guest'
+];
+
+Нужно найти поле с максимальным значением и вернуть его в результат:
+
+// 'vip'
+
+Solution:
+
+const find = (priorities, roles) => {
+  let maxRole = roles[0]
+  
+  for (const role of roles) {
+    if (priorities[role] > priorities[maxRole]) {
+      maxRole = role
+    }
+  }
+  
+  return maxRole
+}
