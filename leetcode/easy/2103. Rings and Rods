@@ -1,0 +1,27 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(k)
+
+var countPoints = function(rings) {
+    const hashMap = new Map()
+    let count = 0
+
+    for (let i = 0; i < rings.length; i += 2) {
+        const color = rings[i]
+        const index = rings[i + 1]
+
+        if (!hashMap.has(index)) {
+            hashMap.set(index, new Set())
+        }
+
+        hashMap.get(index).add(color)
+    }
+
+    for (const value of hashMap.values()) {
+        if (value.size === 3) {
+            count++
+        }
+    }
+
+    return count
+};
