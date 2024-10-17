@@ -1,0 +1,14 @@
+Solution:
+    Time complexity O(n + m) 
+    Space complexity O(n + m)
+
+
+var findDifference = function(nums1, nums2) {
+    const num1Set = new Set(nums1)
+    const num2Set = new Set(nums2)
+
+    const result1 = [...num1Set].filter(num => !num2Set.has(num))
+    const result2 = [...num2Set].filter(num => !num1Set.has(num))
+
+    return [result1, result2]
+};
