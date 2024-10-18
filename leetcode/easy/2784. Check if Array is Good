@@ -1,0 +1,26 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(n)
+
+var isGood = function(nums) {
+    let max = 0
+    const hashMap = new Map()
+
+    for (const num of nums) {
+        hashMap.set(num, (hashMap.get(num) || 0) + 1)
+
+        if (num > max) {
+            max = num
+        }
+    }
+
+    if (nums.length !== max + 1 || hashMap.get(max) !== 2) return false
+
+    for (let i = 1; i <= max - 1; i++) {
+        if (hashMap.get(i) !== 1) {
+            return false
+        }
+    }
+
+    return true
+};
