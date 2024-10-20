@@ -1,0 +1,25 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(n)
+
+var maxFrequencyElements = function(nums) {
+    const hashMap = new Map()
+    let max = 0
+    let result = 0
+
+    for (const num of nums) {
+        hashMap.set(num, (hashMap.get(num) || 0) + 1)
+
+        if (hashMap.get(num) > max) {
+            max = hashMap.get(num)
+        }
+    }
+
+    for (const value of hashMap.values()) {
+        if (value === max) {
+            result += value
+        }
+    }
+
+    return result
+};
