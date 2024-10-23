@@ -1,0 +1,35 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(n)
+
+var buddyStrings = function(s, goal) {
+    if (s.length !== goal.length) {
+        return false
+    }
+
+    if (s === goal) {
+        const set = new Set()
+
+        for (const char of s) {
+            if (set.has(char)) {
+                return true
+            }
+
+            set.add(char)
+        }
+
+        return false
+    }
+
+    const diff = []
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] !== goal[i]) {
+            diff.push(i)
+        }
+    }
+
+    const [i, j] = diff
+
+    return diff.length === 2 && s[i] === goal[j] && s[j] === goal[i]
+};
