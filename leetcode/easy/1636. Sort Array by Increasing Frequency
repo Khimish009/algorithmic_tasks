@@ -1,0 +1,24 @@
+Solution:
+    Time complexity O(n log N)
+    Space complexity O(n)
+
+var frequencySort = function(nums) {
+    const hashMap = new Map()
+
+    for (const num of nums) {
+        hashMap.set(num, (hashMap.get(num) || 0) + 1)
+    }
+
+    const sortedNums = [...nums].sort((a, b) => {
+        const freqA = hashMap.get(a)
+        const freqB = hashMap.get(b)
+
+        if (freqA !== freqB) {
+            return freqA - freqB
+        }
+
+        return b - a
+    })
+
+    return sortedNums
+};
