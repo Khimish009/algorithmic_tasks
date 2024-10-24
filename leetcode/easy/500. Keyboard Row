@@ -1,0 +1,42 @@
+Solution:
+    Time complexity O(n * m)
+    Space complexity O(1)
+
+var findWords = function(words) {
+    const topSet = new Set("qwertyuiop")
+    const centerSet = new Set("asdfghjkl")
+    const bottonSet = new Set("zxcvbnm")
+    const result = []
+
+    for (const word of words) {
+        const lowerWord = word.toLowerCase()
+
+        let currentSet
+
+        if (topSet.has(lowerWord[0])) {
+            currentSet = topSet
+        }
+
+        if (centerSet.has(lowerWord[0])) {
+            currentSet = centerSet
+        }
+
+        if (bottonSet.has(lowerWord[0])) {
+            currentSet = bottonSet
+        }
+
+        let isValid = true
+        for (const char of lowerWord) {
+            if (!currentSet.has(char)) {
+                isValid = false
+                break
+            }
+        }
+
+        if (isValid) {
+            result.push(word)
+        }
+    }
+
+    return result
+};
