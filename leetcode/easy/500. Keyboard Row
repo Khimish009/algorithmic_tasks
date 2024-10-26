@@ -40,4 +40,3 @@ var findWords = function(words) {
 
     return result
 };
-
