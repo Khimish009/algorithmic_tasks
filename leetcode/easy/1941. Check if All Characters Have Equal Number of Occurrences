@@ -1,0 +1,13 @@
+Solution:
+    Time complexity O(n)
+    Space complexity O(k)
+
+var areOccurrencesEqual = function(s) {
+    const hashMap = new Map()
+
+    for (const char of s) {
+        hashMap.set(char, (hashMap.get(char) || 0) + 1)
+    }
+
+    return [...hashMap.values()].every((freq, _, arr) => freq === arr[0])
+};
