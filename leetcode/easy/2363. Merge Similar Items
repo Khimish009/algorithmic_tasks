@@ -1,0 +1,31 @@
+Solution 1:
+    Time complexity O(k * log k)
+    Space complexity O(k)
+
+var mergeSimilarItems = function(items1, items2) {
+    const hashMap = new Map()
+
+    for (const item of [...items1, ...items2]) {
+        const [key, value] = item
+
+        hashMap.set(key, (hashMap.get(key) || 0) + value)
+    }
+
+    return [...hashMap.entries()].sort((a, b) => a[0] - b[0])
+};
+
+Solution 2:
+    Time complexity O(n + m + k)
+    Space complexity O(n + m + k)
+
+var mergeSimilarItems = function(items1, items2) {
+    const result = {}
+
+    for (const item of [...items1, ...items2]) {
+        const [key, value] = item
+
+        result[key] = (result[key] || 0) + value
+    }
+
+    return Object.entries(result).map(([key, value]) => [parseInt(key), value])
+};
